@@ -3,6 +3,7 @@ package org.springboard.controller.api.v1;
 import lombok.Getter;
 import lombok.Setter;
 import org.springboard.entity.User;
+import org.springboard.exception.PermissionErrorException;
 
 import javax.persistence.MappedSuperclass;
 
@@ -21,9 +22,8 @@ public abstract class BaseController {
      * @param user
      */
     protected void assertOnlyFor(User user) {
-        return;
-//        if (!user.getId().equals(currentUser.getId())) {
-//            throw new PermissionErrorException("Resources are only open to themselves.");
-//        }
+        if (!user.getId().equals(currentUser.getId())) {
+            throw new PermissionErrorException("Resources are only open to themselves.");
+        }
     }
 }

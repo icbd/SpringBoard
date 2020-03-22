@@ -30,7 +30,7 @@ public class UserController extends BaseController {
 
     @GetMapping("/{uuid}")
     public ResponseEntity<UserDto> show(@PathVariable String uuid) {
-        User user = userService.getUser(uuid);
+        User user = userService.getUserByUuid(uuid);
         assertOnlyFor(user);
 
         UserDto userDto = userMapper.toUserDto(user);
@@ -46,7 +46,7 @@ public class UserController extends BaseController {
 
     @PatchMapping("/{uuid}")
     public ResponseEntity<UserDto> update(@PathVariable String uuid, @RequestBody UpdateUserVo vo) {
-        User user = userService.getUser(uuid);
+        User user = userService.getUserByUuid(uuid);
         assertOnlyFor(user);
 
         userService.updateUser(user, vo);
@@ -56,7 +56,7 @@ public class UserController extends BaseController {
 
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> destroy(@PathVariable String uuid) {
-        User user = userService.getUser(uuid);
+        User user = userService.getUserByUuid(uuid);
         assertOnlyFor(user);
 
         userService.destroyUser(user.getId());

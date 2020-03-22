@@ -1,11 +1,11 @@
 package org.springboard.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springboard.vo.CreateUserVo;
-import org.springboard.vo.UpdateUserVo;
 import org.springboard.entity.User;
 import org.springboard.mapper.UserMapper;
 import org.springboard.repository.UserRepository;
+import org.springboard.vo.CreateUserVo;
+import org.springboard.vo.UpdateUserVo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,12 +22,20 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public User getUser(Long id) {
+    public User getUserByUuid(Long id) {
         return userRepository.getOne(id);
     }
 
-    public User getUser(String uuid) {
+    public User getUserByUuid(String uuid) {
         User user = userRepository.getByUuid(uuid);
+        if (user == null) {
+            throw new EntityNotFoundException();
+        }
+        return user;
+    }
+
+    public User getUserByEmail(String email) {
+        User user = userRepository.getByEmail(email);
         if (user == null) {
             throw new EntityNotFoundException();
         }

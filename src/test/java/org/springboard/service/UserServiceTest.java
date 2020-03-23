@@ -1,6 +1,5 @@
 package org.springboard.service;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -46,11 +45,6 @@ class UserServiceTest extends ServiceTestBase {
     void setUp() {
         IntStream.range(0, CASE_COUNT).forEach(i -> cases.add(userRepository.save(buildUser())));
         aCase = sample(cases);
-    }
-
-    @AfterEach
-    void teardown() {
-        cases.forEach(i -> userRepository.delete(i));
     }
 
     @Test

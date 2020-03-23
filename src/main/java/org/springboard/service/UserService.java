@@ -22,8 +22,12 @@ public class UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    public User getUserByUuid(Long id) {
+    public User getUserById(Long id) {
         return userRepository.getOne(id);
+    }
+
+    public Optional<User> findUserById(Long id) {
+        return userRepository.findById(id);
     }
 
     public User getUserByUuid(String uuid) {
@@ -40,10 +44,6 @@ public class UserService {
             throw new EntityNotFoundException();
         }
         return user;
-    }
-
-    public Optional<User> findUserById(Long id) {
-        return userRepository.findById(id);
     }
 
     public Page<User> findAllUsers(Pageable pageable) {

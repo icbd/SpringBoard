@@ -2,12 +2,16 @@ package org.springboard.service;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springboard.entity.AccessToken;
 import org.springboard.entity.User;
 import org.springboard.vo.CreateUserVo;
 import org.springboard.vo.UpdateUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.time.LocalDateTime;
+
 
 @ComponentScan("org.springboard")
 public abstract class ServiceTestBase {
@@ -43,5 +47,13 @@ public abstract class ServiceTestBase {
                            .email(faker.internet().emailAddress())
                            .name(faker.name().fullName())
                            .build();
+    }
+
+    AccessToken buildAccessToken(User user) {
+        return AccessToken.builder()
+                          .user(user)
+                          .token(RandomStringUtils.randomAlphanumeric(32))
+                          .expiredAt(LocalDateTime.now().plusDays(1))
+                          .build();
     }
 }

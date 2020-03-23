@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -37,10 +36,6 @@ public class AccessTokenService {
 
     public List<AccessToken> findAvailableAccessToken(User user) {
         return accessTokenRepository.findAvailableByUserId(user.getId(), LocalDateTime.now());
-    }
-
-    public Optional<AccessToken> findAccessTokenById(Long id) {
-        return accessTokenRepository.findById(id);
     }
 
     public AccessToken findOrCreateAccessToken(User user) {

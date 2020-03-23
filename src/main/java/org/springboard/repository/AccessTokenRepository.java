@@ -12,7 +12,7 @@ public interface AccessTokenRepository extends JpaRepository<AccessToken, Long> 
 
     AccessToken getByToken(String token);
 
-    Void deleteAllByUser(User user);
+    void deleteAllByUser(User user);
 
     @Query("select tk from AccessToken tk where tk.user.id = ?1 and tk.expiredAt > ?2 order by tk.createdAt desc")
     List<AccessToken> findAvailableByUserId(Long userId, LocalDateTime compareWith);

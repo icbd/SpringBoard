@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @ComponentScan("org.springboard")
-public abstract class BaseServiceTest {
+public abstract class ServiceTestBase {
 
     @Autowired
     private PasswordEncoder passwordEncoder;

@@ -31,7 +31,7 @@ import static org.springboard.util.ListHelper.sample;
 
 @DataJpaTest
 @Nested
-class UserServiceTest extends BaseServiceTest {
+class UserServiceTest extends ServiceTestBase {
 
     @Autowired
     private UserRepository userRepository;

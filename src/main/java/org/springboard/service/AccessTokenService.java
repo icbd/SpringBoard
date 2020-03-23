@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springboard.entity.AccessToken;
 import org.springboard.entity.User;
-import org.springboard.exception.PermissionErrorException;
+import org.springboard.exception.AuthenticationErrorException;
 import org.springboard.repository.AccessTokenRepository;
 import org.springframework.stereotype.Service;
 
@@ -27,9 +27,9 @@ public class AccessTokenService {
     public AccessToken getAccessToken(String token) {
         AccessToken accessToken = accessTokenRepository.getByToken(token);
         if (accessToken == null) {
-            throw new PermissionErrorException("Token is invalid.");
+            throw new AuthenticationErrorException("Token is invalid.");
         } else if (accessToken.getExpiredAt().isBefore(LocalDateTime.now())) {
-            throw new PermissionErrorException("Token has expired.");
+            throw new AuthenticationErrorException("Token has expired.");
         }
 
         return accessToken;

@@ -3,7 +3,7 @@ package org.springboard.service;
 import lombok.RequiredArgsConstructor;
 import org.springboard.entity.AccessToken;
 import org.springboard.entity.User;
-import org.springboard.exception.PermissionErrorException;
+import org.springboard.exception.ParamsErrorException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +24,8 @@ public class LoginService {
             if (!passwordEncoder.matches(password, user.getPasswordDigest())) {
                 throw new EntityNotFoundException();
             }
-        } catch (EntityNotFoundException e) {
-            throw new PermissionErrorException("Incorrect Email or Password.");
+        } catch (Exception e) {
+            throw new ParamsErrorException("Incorrect Email or Password.");
         }
 
         return accessTokenService.findOrCreateAccessToken(user);

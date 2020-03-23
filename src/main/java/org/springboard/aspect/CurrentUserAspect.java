@@ -6,9 +6,9 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springboard.entity.User;
+import org.springboard.exception.AuthenticationErrorException;
 import org.springboard.exception.PermissionErrorException;
 import org.springboard.service.AccessTokenService;
-import org.springboard.service.UserService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -20,13 +20,15 @@ import static org.springboard.util.ControllerHelper.parseAccessTokenFrom;
 
 /**
  * 解析 AccessToken, Set currentUser
+ *
+ * Token 不存在/过期 => 401
+ * 用户未启动 => 403
  */
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class CurrentUserAspect {
 
-    private final UserService userService;
     private final AccessTokenService accessTokenService;
 
     @Pointcut("execution(public * org.springboard.controller.api.v1.*.*(..)) && " +
@@ -37,15 +39,18 @@ public class CurrentUserAspect {
     }
 
     @Before("allControllerMethodsExceptAccessToken()")
-    public void doBeforeIndex(JoinPoint joinPoint) {
+    public void doBeforeIndex(JoinPoint joinPoint) throws Exception {
         try {
             User user = fetchCurrentUserFromToken();
+            if (!user.getEnabled()) {
+                throw new PermissionErrorException("Account has not been activated.");
+            }
             Object target = joinPoint.getTarget();
             Method setCurrentUserMethod = target.getClass().getMethod("setCurrentUser", User.class);
             setCurrentUserMethod.invoke(target, user);
 
         } catch (Exception e) {
-            throw new RuntimeException("Set current user error.");
+            throw e;
         }
     }
 
@@ -53,7 +58,7 @@ public class CurrentUserAspect {
         String bearer = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest().getHeader("Authorization");
         Optional<String> token = parseAccessTokenFrom(bearer);
-        token.orElseThrow(PermissionErrorException::new);
+        token.orElseThrow(AuthenticationErrorException::new);
         return accessTokenService.getAccessToken(token.get()).getUser();
     }
 }

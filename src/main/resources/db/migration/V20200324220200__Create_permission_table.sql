@@ -11,4 +11,4 @@ CREATE TABLE IF NOT EXISTS permission
     `deleted_at`  timestamp             DEFAULT NULL
 );
 
-CREATE INDEX "index_permission_on_deleted_at" ON permission ("deleted_at");
+CREATE INDEX index_permission_on_deleted_at ON permission (deleted_at);

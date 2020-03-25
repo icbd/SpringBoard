@@ -13,10 +13,10 @@ CREATE TABLE IF NOT EXISTS task
     `deleted_at`  timestamp             DEFAULT NULL
 );
 
-CREATE INDEX "index_task_on_listing_id" ON task ("listing_id");
+CREATE INDEX index_task_on_listing_id ON task (listing_id);
 
-CREATE INDEX "index_task_on_creator_id" ON task ("creator_id");
+CREATE INDEX index_task_on_creator_id ON task (creator_id);
 
-CREATE INDEX "index_task_on_parent_id" ON task ("parent_id");
+CREATE INDEX index_task_on_parent_id ON task (parent_id);
 
-CREATE INDEX "index_task_on_deleted_at" ON task ("deleted_at");
+CREATE INDEX index_task_on_deleted_at ON task (deleted_at);

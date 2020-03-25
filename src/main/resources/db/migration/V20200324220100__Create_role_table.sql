@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS role
     `deleted_at`  timestamp             DEFAULT NULL
 );
 
-CREATE INDEX "index_task_on_creator_id" ON role ("creator_id");
+CREATE INDEX index_role_on_creator_id ON role (creator_id);
 
-CREATE INDEX "index_task_on_parent_id" ON role ("parent_id");
+CREATE INDEX index_role_on_parent_id ON role (parent_id);
 
-CREATE INDEX "index_task_on_deleted_at" ON role ("deleted_at");
+CREATE INDEX index_role_on_deleted_at ON role (deleted_at);

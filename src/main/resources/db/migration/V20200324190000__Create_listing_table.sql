@@ -15,3 +15,5 @@ CREATE TABLE IF NOT EXISTS listing
 CREATE INDEX "index_listing_on_project_id" ON listing ("project_id");
 
 CREATE INDEX "index_listing_on_creator_id" ON listing ("creator_id");
+
+CREATE INDEX "index_listing_on_deleted_at" ON listing ("deleted_at");

@@ -11,3 +11,5 @@ CREATE TABLE IF NOT EXISTS user
     `updated_at`      timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `deleted_at`      timestamp             DEFAULT NULL
 );
+
+CREATE INDEX "index_user_on_deleted_at" ON user ("deleted_at");

@@ -12,3 +12,5 @@ CREATE TABLE IF NOT EXISTS product
 );
 
 CREATE INDEX "index_product_on_creator_id" ON product ("creator_id");
+
+CREATE INDEX "index_product_on_deleted_at" ON product ("deleted_at");

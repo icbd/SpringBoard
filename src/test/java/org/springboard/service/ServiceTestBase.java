@@ -2,9 +2,12 @@ package org.springboard.service;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springboard.vo.CreateProductVo;
 import org.springboard.entity.AccessToken;
+import org.springboard.entity.Product;
 import org.springboard.entity.User;
 import org.springboard.vo.CreateUserVo;
+import org.springboard.vo.UpdateProductVo;
 import org.springboard.vo.UpdateUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -55,5 +58,27 @@ public abstract class ServiceTestBase {
                           .token(RandomStringUtils.randomAlphanumeric(32))
                           .expiredAt(LocalDateTime.now().plusDays(1))
                           .build();
+    }
+
+    Product buildProduct(User creator) {
+        return Product.builder()
+                      .creator(creator)
+                      .title(faker.book().title())
+                      .description(faker.book().publisher())
+                      .build();
+    }
+
+    CreateProductVo buildCreateProductVo() {
+        return CreateProductVo.builder()
+                              .title(faker.book().title())
+                              .description(faker.book().author())
+                              .build();
+    }
+
+    UpdateProductVo buildUpdateProductVo() {
+        return UpdateProductVo.builder()
+                              .title(faker.book().title())
+                              .description(faker.book().author())
+                              .build();
     }
 }

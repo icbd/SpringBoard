@@ -11,7 +11,7 @@ import org.springboard.listener.FillUuidListener;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
@@ -22,12 +22,16 @@ import java.time.LocalDateTime;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 @EntityListeners(FillUuidListener.class)
-public class Product extends BaseEntity {
+public class Listing extends BaseEntity {
 
     @NotBlank
     private String uuid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Product project;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private User creator;
 

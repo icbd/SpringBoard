@@ -2,6 +2,7 @@ package org.springboard.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springboard.entity.Listing;
+import org.springboard.entity.Product;
 import org.springboard.entity.User;
 import org.springboard.mapper.ListingMapper;
 import org.springboard.repository.ListingRepository;
@@ -15,6 +16,7 @@ import javax.persistence.EntityNotFoundException;
 @Service
 public class ListingService {
 
+    private final ProductService productService;
     private final ListingRepository listingRepository;
     private final ListingMapper listingMapper;
 
@@ -31,8 +33,10 @@ public class ListingService {
     }
 
     public Listing createListing(CreateListingVo vo, User creator) {
+        Product product = productService.getProductByUuid(vo.getProductUuid());
         Listing listing = listingMapper.createListing(vo);
         listing.setCreator(creator);
+        listing.setProject(product);
         return listingRepository.save(listing);
     }
 

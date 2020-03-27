@@ -3,6 +3,7 @@ package org.springboard.controller.api.v1;
 import lombok.Getter;
 import lombok.Setter;
 import org.springboard.entity.User;
+import org.springboard.exception.PermissionErrorException;
 
 import javax.persistence.MappedSuperclass;
 
@@ -14,4 +15,15 @@ public abstract class BaseController {
 
     // Set by AOP
     private User currentUser;
+
+    /**
+     * 该资源仅对入参的user开放, 其他人403
+     *
+     * @param user
+     */
+    protected void assertOnlyFor(User user) {
+        if (!user.getId().equals(currentUser.getId())) {
+            throw new PermissionErrorException("Resources are only open to themselves.");
+        }
+    }
 }

@@ -1,4 +1,11 @@
+flyway.locations=filesystem:src/main/resources/db/migration
+
+; ;TEST
+; flyway.url=jdbc:h2:mem:springboard-test
+; flyway.user=sa
+; flyway.password=sa
+
+; ;DEV
 flyway.url=jdbc:mysql://localhost:3306/springboard-dev
 flyway.user=root
 flyway.password=rootpassword
-flyway.locations=filesystem:src/main/resources/db/migration

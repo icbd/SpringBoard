@@ -1,5 +1,6 @@
 package org.springboard.controller.api.v1;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.UserDto;
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-/**
- * 用户个人中心
- */
+@Api(tags = "用户个人中心")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(BaseController.PREFIX + "/user")
@@ -30,7 +29,7 @@ public class UserController extends BaseController {
     private final UserService userService;
     private final UserMapper userMapper;
 
-    @ApiOperation("查看个人信息")
+    @ApiOperation(value = "查看个人信息")
     @GetMapping
     public ResponseEntity<UserDto> show() {
         UserDto userDto = userMapper.toUserDto(getCurrentUser());

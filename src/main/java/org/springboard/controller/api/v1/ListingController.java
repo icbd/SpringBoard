@@ -1,5 +1,7 @@
 package org.springboard.controller.api.v1;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.ListingDto;
 import org.springboard.entity.Listing;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
+@Api(tags = "列表/清单")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(BaseController.PREFIX + "/listings")
@@ -28,6 +31,7 @@ public class ListingController extends BaseController {
     private final ListingService listingService;
     private final ListingMapper listingMapper;
 
+    @ApiOperation("展示清单")
     @GetMapping("/{uuid}")
     public ResponseEntity<ListingDto> show(@PathVariable String uuid) {
         Listing listing = listingService.getListingByUuid(uuid);
@@ -35,6 +39,7 @@ public class ListingController extends BaseController {
         return ResponseEntity.ok(listingDto);
     }
 
+    @ApiOperation("创建清单")
     @PostMapping
     public ResponseEntity<ListingDto> create(@Valid @RequestBody CreateListingVo vo) {
         Listing listing = listingService.createListing(vo, getCurrentUser());
@@ -42,6 +47,7 @@ public class ListingController extends BaseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(listingDto);
     }
 
+    @ApiOperation("编辑清单")
     @PatchMapping("/{uuid}")
     public ResponseEntity<ListingDto> update(@PathVariable String uuid, @RequestBody UpdateListingVo vo) {
         Listing listing = listingService.getListingByUuid(uuid);
@@ -50,6 +56,7 @@ public class ListingController extends BaseController {
         return ResponseEntity.ok(listingDto);
     }
 
+    @ApiOperation("删除清单")
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> destroy(@PathVariable String uuid) {
         Listing listing = listingService.getListingByUuid(uuid);

@@ -1,5 +1,7 @@
 package org.springboard.controller.api.v1;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.AccessTokenDto;
 import org.springboard.entity.AccessToken;
@@ -23,6 +25,7 @@ import java.util.Optional;
 
 import static org.springboard.util.ControllerHelper.parseAccessTokenFrom;
 
+@Api(tags = "登录令牌")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(BaseController.PREFIX + "/access_tokens")
@@ -32,6 +35,7 @@ public class AccessTokenController extends BaseController {
     private final LoginService loginService;
     private final AccessTokenMapper accessTokenMapper;
 
+    @ApiOperation("查看令牌信息")
     @GetMapping
     public ResponseEntity<AccessTokenDto> show(@RequestHeader("Authorization") String bearer) {
         Optional<String> tokenOptional = parseAccessTokenFrom(bearer);
@@ -42,12 +46,7 @@ public class AccessTokenController extends BaseController {
         return ResponseEntity.ok(accessTokenDto);
     }
 
-    /**
-     * Login
-     *
-     * @param vo
-     * @return
-     */
+    @ApiOperation("登录: 获取令牌")
     @PostMapping
     public ResponseEntity<AccessTokenDto> create(@Valid @RequestBody PasswordLoginVo vo) {
         AccessToken accessToken = loginService.loginByPassword(vo.getEmail(), vo.getPassword());
@@ -55,12 +54,7 @@ public class AccessTokenController extends BaseController {
         return ResponseEntity.status(HttpStatus.CREATED).body(accessTokenDto);
     }
 
-    /**
-     * Logout on this device
-     *
-     * @param bearer
-     * @return
-     */
+    @ApiOperation("登出此设备")
     @DeleteMapping
     public ResponseEntity<Void> destroy(@RequestHeader("Authorization") String bearer) {
         Optional<String> tokenOptional = parseAccessTokenFrom(bearer);

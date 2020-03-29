@@ -13,8 +13,8 @@ import org.springboard.vo.UpdateTaskVo;
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
 
-    @Mapping(source = "listing", target = "listingUuid", expression = "java(s.getUuid())")
-    @Mapping(source = "parentTask", target = "parentTaskUuid", expression = "java(s.getUuid())")
+    @Mapping(source = "listing.uuid", target = "listingUuid")
+    @Mapping(source = "parentTask.uuid", target = "parentTaskUuid")
     TaskDto toTaskDto(Task task);
 
     Task createTask(CreateTaskVo vo);

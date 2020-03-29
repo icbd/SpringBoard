@@ -10,14 +10,13 @@ import java.util.UUID;
 @Component
 public class FillUuidListener {
 
+    private static final String UUID_FIELD = "uuid";
+
     @PrePersist
     protected void fillUuidBeforeCreate(Object entity) throws Exception {
-        try {
-            if (PropertyUtils.getProperty(entity, "uuid") == null) {
-                PropertyUtils.setProperty(entity, "uuid", UUID.randomUUID().toString());
-            }
-        } catch (Exception e) {
-            throw new Exception("No uuid field found on " + entity.getClass().getName());
+        if (PropertyUtils.isWriteable(entity, UUID_FIELD) &&
+                PropertyUtils.getProperty(entity, "uuid") == null) {
+            PropertyUtils.setProperty(entity, "uuid", UUID.randomUUID().toString());
         }
     }
 }

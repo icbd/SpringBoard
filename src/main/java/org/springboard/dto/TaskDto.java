@@ -15,7 +15,7 @@ public class TaskDto {
 
     private UserBasicDto creator;
 
-    private String parentUuid;
+    private String parentTaskUuid;
 
     private String title;
 

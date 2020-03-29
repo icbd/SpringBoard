@@ -46,7 +46,7 @@ public class UserController extends BaseController {
 
     @ApiOperation("修改个人信息")
     @PatchMapping
-    public ResponseEntity<UserDto> update(@RequestBody UpdateUserVo vo) {
+    public ResponseEntity<UserDto> update(@Valid @RequestBody UpdateUserVo vo) {
         User user = getCurrentUser();
         userService.updateUser(user, vo);
         UserDto userDto = userMapper.toUserDto(user);

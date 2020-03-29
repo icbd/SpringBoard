@@ -49,7 +49,7 @@ public class ListingController extends BaseController {
 
     @ApiOperation("编辑清单")
     @PatchMapping("/{uuid}")
-    public ResponseEntity<ListingDto> update(@PathVariable String uuid, @RequestBody UpdateListingVo vo) {
+    public ResponseEntity<ListingDto> update(@PathVariable String uuid, @Valid @RequestBody UpdateListingVo vo) {
         Listing listing = listingService.getListingByUuid(uuid);
         listingService.updateListing(listing, vo);
         ListingDto listingDto = listingMapper.toListingDto(listing);

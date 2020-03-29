@@ -31,6 +31,9 @@ public class WebSecurityConfiguration {
         @Override
         protected void configure(HttpSecurity httpSecurity) throws Exception {
             httpSecurity
+                    .csrf().disable()
+                    .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                    .and()
                     .authorizeRequests()
                     .antMatchers("/swagger-ui.html").hasRole(SYS_DOC_ROLE)
                     .and().httpBasic()

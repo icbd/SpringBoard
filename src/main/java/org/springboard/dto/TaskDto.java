@@ -11,11 +11,11 @@ public class TaskDto {
 
     private String uuid;
 
-    private Long listingId;
+    private String listingUuid;
 
     private UserBasicDto creator;
 
-    private Long parentId;
+    private String parentUuid;
 
     private String title;
 

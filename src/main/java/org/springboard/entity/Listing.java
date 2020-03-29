@@ -6,10 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springboard.listener.FillUuidListener;
 
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
@@ -21,7 +19,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-@EntityListeners(FillUuidListener.class)
 public class Listing extends BaseEntity {
 
     @NotBlank

@@ -1,9 +1,11 @@
 package org.springboard.vo;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+@Builder
 @Getter
 @Setter
 public class UpdateTaskVo {
@@ -19,5 +21,5 @@ public class UpdateTaskVo {
     private String description;
 
     @ApiModelProperty("完成项目置为true")
-    private Boolean completed = false;
+    private Boolean completed;
 }

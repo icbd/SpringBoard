@@ -49,7 +49,7 @@ public class ProductController extends BaseController {
 
     @ApiOperation("编辑项目")
     @PatchMapping("/{uuid}")
-    public ResponseEntity<ProductDto> update(@PathVariable String uuid, @RequestBody UpdateProductVo vo) {
+    public ResponseEntity<ProductDto> update(@PathVariable String uuid, @Valid @RequestBody UpdateProductVo vo) {
         Product product = productService.getProductByUuid(uuid);
         productService.updateProduct(product, vo);
         ProductDto productDto = productMapper.toProductDto(product);

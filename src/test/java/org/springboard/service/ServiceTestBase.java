@@ -7,9 +7,11 @@ import org.springboard.entity.Listing;
 import org.springboard.entity.Product;
 import org.springboard.entity.Task;
 import org.springboard.entity.User;
+import org.springboard.vo.CreateListingVo;
 import org.springboard.vo.CreateProductVo;
 import org.springboard.vo.CreateTaskVo;
 import org.springboard.vo.CreateUserVo;
+import org.springboard.vo.UpdateListingVo;
 import org.springboard.vo.UpdateProductVo;
 import org.springboard.vo.UpdateTaskVo;
 import org.springboard.vo.UpdateUserVo;
@@ -93,6 +95,21 @@ public abstract class ServiceTestBase {
                       .project(product)
                       .creator(creator)
                       .build();
+    }
+
+    CreateListingVo buildCreateListingVo(String productUuid) {
+        return CreateListingVo.builder()
+                              .productUuid(productUuid)
+                              .title(faker.book().title())
+                              .description(faker.book().author())
+                              .build();
+    }
+
+    UpdateListingVo buildUpdateListingVo() {
+        return UpdateListingVo.builder()
+                              .title(faker.book().title())
+                              .description(faker.book().author())
+                              .build();
     }
 
     Task buildTask(Listing listing, Task parentTask, User creator) {

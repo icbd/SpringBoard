@@ -28,11 +28,11 @@ public abstract class ServiceTestBase {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    protected static final Integer CASE_COUNT = 3;
+    public static final Integer CASE_COUNT = 3;
 
-    protected Faker faker = new Faker();
+    public Faker faker = new Faker();
 
-    User buildUser() {
+    public User buildUser() {
         String password = RandomStringUtils.randomAlphanumeric(10);
         return User.builder()
                    .enabled(true)
@@ -43,7 +43,7 @@ public abstract class ServiceTestBase {
                    .build();
     }
 
-    CreateUserVo buildCreateUserVo() {
+    public CreateUserVo buildCreateUserVo() {
         return CreateUserVo.builder()
                            .name(faker.name().fullName())
                            .email(faker.internet().emailAddress())
@@ -51,14 +51,14 @@ public abstract class ServiceTestBase {
                            .build();
     }
 
-    UpdateUserVo buildUpdateUserVo() {
+    public UpdateUserVo buildUpdateUserVo() {
         return UpdateUserVo.builder()
                            .email(faker.internet().emailAddress())
                            .name(faker.name().fullName())
                            .build();
     }
 
-    AccessToken buildAccessToken(User user) {
+    public AccessToken buildAccessToken(User user) {
         return AccessToken.builder()
                           .user(user)
                           .token(RandomStringUtils.randomAlphanumeric(32))
@@ -66,7 +66,7 @@ public abstract class ServiceTestBase {
                           .build();
     }
 
-    Product buildProduct(User creator) {
+    public Product buildProduct(User creator) {
         return Product.builder()
                       .creator(creator)
                       .title(faker.book().title())
@@ -74,21 +74,21 @@ public abstract class ServiceTestBase {
                       .build();
     }
 
-    CreateProductVo buildCreateProductVo() {
+    public CreateProductVo buildCreateProductVo() {
         return CreateProductVo.builder()
                               .title(faker.book().title())
                               .description(faker.book().author())
                               .build();
     }
 
-    UpdateProductVo buildUpdateProductVo() {
+    public UpdateProductVo buildUpdateProductVo() {
         return UpdateProductVo.builder()
                               .title(faker.book().title())
                               .description(faker.book().author())
                               .build();
     }
 
-    Listing buildListing(Product product, User creator) {
+    public Listing buildListing(Product product, User creator) {
         return Listing.builder()
                       .title(faker.book().title())
                       .description(faker.book().author())
@@ -97,7 +97,7 @@ public abstract class ServiceTestBase {
                       .build();
     }
 
-    CreateListingVo buildCreateListingVo(String productUuid) {
+    public CreateListingVo buildCreateListingVo(String productUuid) {
         return CreateListingVo.builder()
                               .productUuid(productUuid)
                               .title(faker.book().title())
@@ -105,14 +105,14 @@ public abstract class ServiceTestBase {
                               .build();
     }
 
-    UpdateListingVo buildUpdateListingVo() {
+    public UpdateListingVo buildUpdateListingVo() {
         return UpdateListingVo.builder()
                               .title(faker.book().title())
                               .description(faker.book().author())
                               .build();
     }
 
-    Task buildTask(Listing listing, Task parentTask, User creator) {
+    public Task buildTask(Listing listing, Task parentTask, User creator) {
         return Task.builder()
                    .title(faker.book().title())
                    .description(faker.book().author())
@@ -122,7 +122,7 @@ public abstract class ServiceTestBase {
                    .build();
     }
 
-    CreateTaskVo buildCreateTaskVo(String listingUuid, String parentTaskUuid) {
+    public CreateTaskVo buildCreateTaskVo(String listingUuid, String parentTaskUuid) {
         return CreateTaskVo.builder()
                            .title(faker.book().title())
                            .description(faker.book().author())
@@ -131,7 +131,7 @@ public abstract class ServiceTestBase {
                            .build();
     }
 
-    UpdateTaskVo buildUpdateTaskVo(String listingUuid, String parentTaskUuid, Boolean completed) {
+    public UpdateTaskVo buildUpdateTaskVo(String listingUuid, String parentTaskUuid, Boolean completed) {
         return UpdateTaskVo.builder()
                            .title(faker.book().title())
                            .description(faker.book().author())
@@ -140,5 +140,4 @@ public abstract class ServiceTestBase {
                            .completed(completed)
                            .build();
     }
-
 }

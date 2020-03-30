@@ -8,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -24,7 +23,7 @@ public class Product extends BaseEntity {
     @NotBlank
     private String uuid;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JsonIgnore
     private User creator;
 

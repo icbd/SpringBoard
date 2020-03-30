@@ -2,12 +2,16 @@ package org.springboard.service;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springboard.vo.CreateProductVo;
 import org.springboard.entity.AccessToken;
+import org.springboard.entity.Listing;
 import org.springboard.entity.Product;
+import org.springboard.entity.Task;
 import org.springboard.entity.User;
+import org.springboard.vo.CreateProductVo;
+import org.springboard.vo.CreateTaskVo;
 import org.springboard.vo.CreateUserVo;
 import org.springboard.vo.UpdateProductVo;
+import org.springboard.vo.UpdateTaskVo;
 import org.springboard.vo.UpdateUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -81,4 +85,43 @@ public abstract class ServiceTestBase {
                               .description(faker.book().author())
                               .build();
     }
+
+    Listing buildListing(Product product, User creator) {
+        return Listing.builder()
+                      .title(faker.book().title())
+                      .description(faker.book().author())
+                      .project(product)
+                      .creator(creator)
+                      .build();
+    }
+
+    Task buildTask(Listing listing, Task parentTask, User creator) {
+        return Task.builder()
+                   .title(faker.book().title())
+                   .description(faker.book().author())
+                   .listing(listing)
+                   .parentTask(parentTask)
+                   .creator(creator)
+                   .build();
+    }
+
+    CreateTaskVo buildCreateTaskVo(String listingUuid, String parentTaskUuid) {
+        return CreateTaskVo.builder()
+                           .title(faker.book().title())
+                           .description(faker.book().author())
+                           .listingUuid(listingUuid)
+                           .parentUuid(parentTaskUuid)
+                           .build();
+    }
+
+    UpdateTaskVo buildUpdateTaskVo(String listingUuid, String parentTaskUuid, Boolean completed) {
+        return UpdateTaskVo.builder()
+                           .title(faker.book().title())
+                           .description(faker.book().author())
+                           .listingUuid(listingUuid)
+                           .parentUuid(parentTaskUuid)
+                           .completed(completed)
+                           .build();
+    }
+
 }

@@ -11,6 +11,7 @@ import org.springboard.vo.UpdateTaskVo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -48,9 +49,13 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
+    // TODO: parent_id 循环引用
     public Task updateTask(Task task, UpdateTaskVo vo) {
         taskMapper.mergeTask(task, vo);
         bindRelation(task, vo.getListingUuid(), vo.getParentUuid());
+        if (vo.getCompleted() != null && vo.getCompleted()) {
+            task.setCompletedAt(LocalDateTime.now());
+        }
         return taskRepository.save(task);
     }
 

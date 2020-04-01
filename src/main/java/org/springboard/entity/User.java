@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -23,6 +24,7 @@ import java.util.UUID;
 public class User extends BaseEntity {
 
     @NotNull
+    @Type(type = "uuid-char")
     private UUID uuid;
 
     private Boolean enabled = false;

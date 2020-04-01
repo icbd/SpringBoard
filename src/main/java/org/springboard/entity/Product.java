@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
@@ -22,6 +23,7 @@ import java.util.UUID;
 public class Product extends BaseEntity {
 
     @NotNull
+    @Type(type = "uuid-char")
     private UUID uuid;
 
     @OneToOne

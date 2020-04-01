@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class ListingDto {
 
-    private String uuid;
+    private UUID uuid;
 
     private UserBasicDto creator;
 

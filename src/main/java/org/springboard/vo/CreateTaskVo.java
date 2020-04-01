@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -15,10 +16,10 @@ public class CreateTaskVo {
     // TODO listingUuid parentUuid 二选一 validation
 
     @ApiModelProperty("添加Task到Listing, 此时parentUuid应该为空")
-    private String listingUuid;
+    private UUID listingUuid;
 
     @ApiModelProperty("添加子Task到父Task, 此时listingUuid应该为空")
-    private String parentUuid;
+    private UUID parentUuid;
 
     @NotBlank
     private String title;

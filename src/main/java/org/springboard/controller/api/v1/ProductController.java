@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Api(tags = "项目/产品")
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ProductController extends BaseController {
 
     @ApiOperation("展示项目")
     @GetMapping("/{uuid}")
-    public ResponseEntity<ProductDto> show(@PathVariable String uuid) {
+    public ResponseEntity<ProductDto> show(@PathVariable UUID uuid) {
         Product product = productService.getProductByUuid(uuid);
         ProductDto productDto = productMapper.toProductDto(product);
         return ResponseEntity.ok(productDto);
@@ -49,7 +50,7 @@ public class ProductController extends BaseController {
 
     @ApiOperation("编辑项目")
     @PatchMapping("/{uuid}")
-    public ResponseEntity<ProductDto> update(@PathVariable String uuid, @Valid @RequestBody UpdateProductVo vo) {
+    public ResponseEntity<ProductDto> update(@PathVariable UUID uuid, @Valid @RequestBody UpdateProductVo vo) {
         Product product = productService.getProductByUuid(uuid);
         productService.updateProduct(product, vo);
         ProductDto productDto = productMapper.toProductDto(product);
@@ -58,7 +59,7 @@ public class ProductController extends BaseController {
 
     @ApiOperation("删除项目")
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> destroy(@PathVariable String uuid) {
+    public ResponseEntity<Void> destroy(@PathVariable UUID uuid) {
         Product product = productService.getProductByUuid(uuid);
         productService.destroyProduct(product.getId());
         return ResponseEntity.noContent().build();

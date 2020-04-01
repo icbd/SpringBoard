@@ -13,7 +13,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,8 +25,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class Task extends BaseEntity {
 
-    @NotBlank
-    private String uuid;
+    @NotNull
+    private UUID uuid;
 
     @OneToOne
     @JsonIgnore

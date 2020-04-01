@@ -3,6 +3,8 @@ package org.springboard.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 /**
  * User Basic Info
  */
@@ -10,7 +12,7 @@ import lombok.Setter;
 @Setter
 public class UserBasicDto {
 
-    private String uuid;
+    private UUID uuid;
 
     private String name;
 }

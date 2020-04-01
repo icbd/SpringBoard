@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
+import java.util.UUID;
 
 @Builder
 @Getter
@@ -12,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 public class CreateListingVo {
 
     @NotBlank
-    private String productUuid;
+    private UUID productUuid;
 
     @NotBlank
     private String title;

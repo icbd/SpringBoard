@@ -20,7 +20,7 @@ public class FillUuidListener {
         if (PropertyUtils.isWriteable(entity, UUID_FIELD) &&
                 PropertyUtils.getProperty(entity, UUID_FIELD) == null) {
 
-            PropertyUtils.setProperty(entity, UUID_FIELD, UUID.randomUUID().toString());
+            PropertyUtils.setProperty(entity, UUID_FIELD, UUID.randomUUID());
         }
     }
 }

@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,8 +22,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 public class Listing extends BaseEntity {
 
-    @NotBlank
-    private String uuid;
+    @NotNull
+    private UUID uuid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore

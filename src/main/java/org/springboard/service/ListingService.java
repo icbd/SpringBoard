@@ -11,6 +11,7 @@ import org.springboard.vo.UpdateListingVo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +25,7 @@ public class ListingService {
         return listingRepository.getOne(id);
     }
 
-    public Listing getListingByUuid(String uuid) {
+    public Listing getListingByUuid(UUID uuid) {
         Listing listing = listingRepository.getByUuid(uuid);
         if (listing == null) {
             throw new EntityNotFoundException();

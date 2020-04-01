@@ -19,6 +19,7 @@ import org.springframework.data.domain.Sort;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -65,7 +66,7 @@ class ProductServiceTest extends ServiceTestBase {
         assertEquals(aCase.getTitle(), product.getTitle());
 
         assertThrows(EntityNotFoundException.class, () -> {
-            productService.getProductByUuid("INVALID UUID");
+            productService.getProductByUuid(UUID.randomUUID());
         });
     }
 

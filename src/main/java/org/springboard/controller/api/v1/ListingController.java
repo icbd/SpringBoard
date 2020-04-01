@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Api(tags = "列表/清单")
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class ListingController extends BaseController {
 
     @ApiOperation("展示清单")
     @GetMapping("/{uuid}")
-    public ResponseEntity<ListingDto> show(@PathVariable String uuid) {
+    public ResponseEntity<ListingDto> show(@PathVariable UUID uuid) {
         Listing listing = listingService.getListingByUuid(uuid);
         ListingDto listingDto = listingMapper.toListingDto(listing);
         return ResponseEntity.ok(listingDto);
@@ -49,7 +50,7 @@ public class ListingController extends BaseController {
 
     @ApiOperation("编辑清单")
     @PatchMapping("/{uuid}")
-    public ResponseEntity<ListingDto> update(@PathVariable String uuid, @Valid @RequestBody UpdateListingVo vo) {
+    public ResponseEntity<ListingDto> update(@PathVariable UUID uuid, @Valid @RequestBody UpdateListingVo vo) {
         Listing listing = listingService.getListingByUuid(uuid);
         listingService.updateListing(listing, vo);
         ListingDto listingDto = listingMapper.toListingDto(listing);
@@ -58,7 +59,7 @@ public class ListingController extends BaseController {
 
     @ApiOperation("删除清单")
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> destroy(@PathVariable String uuid) {
+    public ResponseEntity<Void> destroy(@PathVariable UUID uuid) {
         Listing listing = listingService.getListingByUuid(uuid);
         listingService.destroyListing(listing.getId());
         return ResponseEntity.noContent().build();

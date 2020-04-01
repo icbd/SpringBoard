@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -30,7 +31,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
-    public User getUserByUuid(String uuid) {
+    public User getUserByUuid(UUID uuid) {
         User user = userRepository.getByUuid(uuid);
         if (user == null) {
             throw new EntityNotFoundException();

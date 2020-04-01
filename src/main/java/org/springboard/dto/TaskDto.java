@@ -4,18 +4,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class TaskDto {
 
-    private String uuid;
+    private UUID uuid;
 
-    private String listingUuid;
+    private UUID listingUuid;
 
     private UserBasicDto creator;
 
-    private String parentTaskUuid;
+    private UUID parentTaskUuid;
 
     private String title;
 

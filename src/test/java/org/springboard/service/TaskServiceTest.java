@@ -20,6 +20,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
@@ -80,7 +81,7 @@ class TaskServiceTest extends ServiceTestBase {
         assertEquals(aCase.getTitle(), task.getTitle());
 
         assertThrows(EntityNotFoundException.class, () -> {
-            taskService.getTaskByUuid("INVALID UUID").getTitle();
+            taskService.getTaskByUuid(UUID.randomUUID()).getTitle();
         });
     }
 

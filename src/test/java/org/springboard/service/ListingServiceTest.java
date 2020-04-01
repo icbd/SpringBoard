@@ -17,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,7 +69,7 @@ class ListingServiceTest extends ServiceTestBase {
         assertEquals(aCase.getTitle(), listing.getTitle());
 
         assertThrows(EntityNotFoundException.class, () -> {
-            listingService.getListingByUuid("INVALID UUID").getTitle();
+            listingService.getListingByUuid(UUID.randomUUID()).getTitle();
         });
     }
 

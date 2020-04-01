@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -26,7 +27,7 @@ public class TaskService {
         return taskRepository.getOne(id);
     }
 
-    public Task getTaskByUuid(String uuid) {
+    public Task getTaskByUuid(UUID uuid) {
         Task task = taskRepository.getByUuid(uuid);
         if (task == null) {
             throw new EntityNotFoundException();
@@ -59,7 +60,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    private void bindRelation(Task task, String listingUuid, String parentUuid) {
+    private void bindRelation(Task task, UUID listingUuid, UUID parentUuid) {
         if (listingUuid != null) {
             bindRelationByListing(task, listingUuid);
         }
@@ -69,13 +70,13 @@ public class TaskService {
         }
     }
 
-    private void bindRelationByListing(Task task, String listingUuid) {
+    private void bindRelationByListing(Task task, UUID listingUuid) {
         Listing listing = listingService.getListingByUuid(listingUuid);
         task.setParentTask(null);
         task.setListing(listing);
     }
 
-    private void bindRelationByParent(Task task, String parentUuid) {
+    private void bindRelationByParent(Task task, UUID parentUuid) {
         Task parentTask = getTaskByUuid(parentUuid);
         task.setParentTask(parentTask);
         task.setListing(parentTask.getListing());

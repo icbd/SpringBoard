@@ -20,6 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 
 @ComponentScan("org.springboard")
@@ -97,7 +98,7 @@ public abstract class ServiceTestBase {
                       .build();
     }
 
-    public CreateListingVo buildCreateListingVo(String productUuid) {
+    public CreateListingVo buildCreateListingVo(UUID productUuid) {
         return CreateListingVo.builder()
                               .productUuid(productUuid)
                               .title(faker.book().title())
@@ -122,7 +123,7 @@ public abstract class ServiceTestBase {
                    .build();
     }
 
-    public CreateTaskVo buildCreateTaskVo(String listingUuid, String parentTaskUuid) {
+    public CreateTaskVo buildCreateTaskVo(UUID listingUuid, UUID parentTaskUuid) {
         return CreateTaskVo.builder()
                            .title(faker.book().title())
                            .description(faker.book().author())
@@ -131,7 +132,7 @@ public abstract class ServiceTestBase {
                            .build();
     }
 
-    public UpdateTaskVo buildUpdateTaskVo(String listingUuid, String parentTaskUuid, Boolean completed) {
+    public UpdateTaskVo buildUpdateTaskVo(UUID listingUuid, UUID parentTaskUuid, Boolean completed) {
         return UpdateTaskVo.builder()
                            .title(faker.book().title())
                            .description(faker.book().author())

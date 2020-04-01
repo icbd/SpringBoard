@@ -19,6 +19,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,7 +49,7 @@ class UserServiceTest extends ServiceTestBase {
     }
 
     @Test
-    void getUserByIdTest() throws Exception {
+    void getUserByIdTest() {
         User user = userService.getUserById(aCase.getId());
         assertEquals(aCase.getName(), user.getName());
 
@@ -58,27 +59,27 @@ class UserServiceTest extends ServiceTestBase {
     }
 
     @Test
-    void getUserByUuidTest() throws Exception {
+    void getUserByUuidTest() {
         User user = userService.getUserByUuid(aCase.getUuid());
         assertEquals(aCase.getName(), user.getName());
 
         assertThrows(EntityNotFoundException.class, () -> {
-            userService.getUserByUuid(faker.name().fullName());
+            userService.getUserByUuid(UUID.randomUUID());
         });
     }
 
     @Test
-    void getUserByEmailTest() throws Exception {
+    void getUserByEmailTest() {
         User user = userService.getUserByEmail(aCase.getEmail());
         assertEquals(aCase.getName(), user.getName());
 
         assertThrows(EntityNotFoundException.class, () -> {
-            userService.getUserByUuid(faker.internet().emailAddress());
+            userService.getUserByEmail(faker.internet().emailAddress());
         });
     }
 
     @Test
-    void findUserByIdTest() throws Exception {
+    void findUserByIdTest() {
         Optional<User> userOptional = userService.findUserById(aCase.getId());
         assertTrue(userOptional.isPresent());
         assertEquals(aCase.getName(), userOptional.get().getName());
@@ -87,7 +88,7 @@ class UserServiceTest extends ServiceTestBase {
     }
 
     @Test
-    void findAllUsersTest() throws Exception {
+    void findAllUsersTest() {
         int page = 0;
         int size = 1;
         // fetch last one by id
@@ -129,7 +130,7 @@ class UserServiceTest extends ServiceTestBase {
     @Nested
     class UpdateUserTest {
         @Test
-        void updateUserTest() throws Exception {
+        void updateUserTest() {
             UpdateUserVo vo = buildUpdateUserVo();
             userService.updateUser(aCase, vo);
             assertEquals(vo.getEmail(), aCase.getEmail());
@@ -137,7 +138,7 @@ class UserServiceTest extends ServiceTestBase {
         }
 
         @Test
-        void onlyPatchAFieldTest() throws Exception {
+        void onlyPatchAFieldTest() {
             UpdateUserVo vo = UpdateUserVo.builder().build();
             vo.setName(faker.name().fullName());
             userService.updateUser(aCase, vo);
@@ -147,7 +148,7 @@ class UserServiceTest extends ServiceTestBase {
     }
 
     @Test
-    void destroyUserTest() throws Exception {
+    void destroyUserTest() {
         long originCount = userRepository.count();
         userService.destroyUser(aCase.getId());
         assertEquals(originCount - 1, userRepository.count());

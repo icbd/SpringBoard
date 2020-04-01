@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -24,7 +25,7 @@ public class ProductService {
         return productRepository.getOne(id);
     }
 
-    public Product getProductByUuid(String uuid) {
+    public Product getProductByUuid(UUID uuid) {
         Product product = productRepository.getByUuid(uuid);
         if (product == null) {
             throw new EntityNotFoundException();

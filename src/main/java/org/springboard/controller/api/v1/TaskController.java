@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @Api(tags = "任务")
 @RequiredArgsConstructor
@@ -33,7 +34,7 @@ public class TaskController extends BaseController {
 
     @ApiOperation("展示任务")
     @GetMapping("/{uuid}")
-    public ResponseEntity<TaskDto> show(@PathVariable String uuid) {
+    public ResponseEntity<TaskDto> show(@PathVariable UUID uuid) {
         Task task = taskService.getTaskByUuid(uuid);
         TaskDto taskDto = taskMapper.toTaskDto(task);
         return ResponseEntity.ok(taskDto);
@@ -49,7 +50,7 @@ public class TaskController extends BaseController {
 
     @ApiOperation("编辑任务")
     @PatchMapping("/{uuid}")
-    public ResponseEntity<TaskDto> update(@PathVariable String uuid, @Valid @RequestBody UpdateTaskVo vo) {
+    public ResponseEntity<TaskDto> update(@PathVariable UUID uuid, @Valid @RequestBody UpdateTaskVo vo) {
         Task task = taskService.getTaskByUuid(uuid);
         taskService.updateTask(task, vo);
         TaskDto taskDto = taskMapper.toTaskDto(task);
@@ -58,7 +59,7 @@ public class TaskController extends BaseController {
 
     @ApiOperation("删除任务")
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Void> destroy(@PathVariable String uuid) {
+    public ResponseEntity<Void> destroy(@PathVariable UUID uuid) {
         Task task = taskService.getTaskByUuid(uuid);
         taskService.destroyTask(task.getId());
         return ResponseEntity.noContent().build();

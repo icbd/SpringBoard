@@ -12,7 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -38,6 +37,4 @@ public class Listing extends BaseEntity {
     private String title;
 
     private String description;
-
-    private LocalDateTime deletedAt;
 }

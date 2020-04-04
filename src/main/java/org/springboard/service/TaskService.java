@@ -11,7 +11,7 @@ import org.springboard.vo.UpdateTaskVo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,7 +55,7 @@ public class TaskService {
         taskMapper.mergeTask(task, vo);
         bindRelation(task, vo.getListingUuid(), vo.getParentUuid());
         if (vo.getCompleted() != null && vo.getCompleted()) {
-            task.setCompletedAt(LocalDateTime.now());
+            task.setCompletedAt(ZonedDateTime.now());
         }
         return taskRepository.save(task);
     }

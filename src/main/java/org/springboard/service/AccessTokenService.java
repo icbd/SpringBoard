@@ -8,7 +8,7 @@ import org.springboard.exception.AuthenticationErrorException;
 import org.springboard.repository.AccessTokenRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -27,7 +27,7 @@ public class AccessTokenService {
         AccessToken accessToken = accessTokenRepository.getByToken(token);
         if (accessToken == null) {
             throw new AuthenticationErrorException("Token is invalid.");
-        } else if (accessToken.getExpiredAt().isBefore(LocalDateTime.now())) {
+        } else if (accessToken.getExpiredAt().isBefore(ZonedDateTime.now())) {
             throw new AuthenticationErrorException("Token has expired.");
         }
 
@@ -35,7 +35,7 @@ public class AccessTokenService {
     }
 
     public List<AccessToken> findAvailableAccessToken(User user) {
-        return accessTokenRepository.findAvailableByUserId(user.getId(), LocalDateTime.now());
+        return accessTokenRepository.findAvailableByUserId(user.getId(), ZonedDateTime.now());
     }
 
     public AccessToken findOrCreateAccessToken(User user) {
@@ -47,11 +47,11 @@ public class AccessTokenService {
     }
 
     public AccessToken createAccessToken(User user) {
-        LocalDateTime expiredAt = LocalDateTime.now().plusDays(EXPIRED_DAYS);
+        ZonedDateTime expiredAt = ZonedDateTime.now().plusDays(EXPIRED_DAYS);
         return createAccessToken(user, expiredAt);
     }
 
-    public AccessToken createAccessToken(User user, LocalDateTime expiredAt) {
+    public AccessToken createAccessToken(User user, ZonedDateTime expiredAt) {
         AccessToken accessToken = AccessToken.builder()
                                              .user(user)
                                              .token(RandomStringUtils.randomAlphanumeric(TOKEN_LENGTH))
@@ -60,7 +60,7 @@ public class AccessTokenService {
         return accessTokenRepository.save(accessToken);
     }
 
-    public void updateAccessToken(AccessToken accessToken, LocalDateTime expiredAt) {
+    public void updateAccessToken(AccessToken accessToken, ZonedDateTime expiredAt) {
         accessToken.setExpiredAt(expiredAt);
         accessTokenRepository.save(accessToken);
     }

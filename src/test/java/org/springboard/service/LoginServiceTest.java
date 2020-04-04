@@ -10,7 +10,7 @@ import org.springboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -35,7 +35,7 @@ class LoginServiceTest extends ServiceTestBase {
     @Test
     void loginByPasswordTest() {
         AccessToken accessToken = loginService.loginByPassword(user.getEmail(), user.getPassword());
-        assertTrue(accessToken.getExpiredAt().isAfter(LocalDateTime.now()));
+        assertTrue(accessToken.getExpiredAt().isAfter(ZonedDateTime.now()));
     }
 
     @Test

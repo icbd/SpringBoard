@@ -3,7 +3,7 @@ package org.springboard.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -11,7 +11,7 @@ public class AccessTokenDto {
 
     private String token;
 
-    private LocalDateTime expiredAt;
+    private ZonedDateTime expiredAt;
 
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
 }

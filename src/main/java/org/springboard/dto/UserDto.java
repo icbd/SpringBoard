@@ -3,7 +3,7 @@ package org.springboard.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @Getter
@@ -18,7 +18,7 @@ public class UserDto {
     
     private String name;
     
-    private LocalDateTime createdAt;
+    private ZonedDateTime createdAt;
     
-    private LocalDateTime updatedAt;
+    private ZonedDateTime updatedAt;
 }

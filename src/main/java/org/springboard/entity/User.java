@@ -12,7 +12,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -39,6 +38,4 @@ public class User extends BaseEntity {
 
     @Transient
     private String password;
-
-    private LocalDateTime deletedAt;
 }

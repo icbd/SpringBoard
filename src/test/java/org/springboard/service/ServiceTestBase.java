@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 
@@ -63,7 +63,7 @@ public abstract class ServiceTestBase {
         return AccessToken.builder()
                           .user(user)
                           .token(RandomStringUtils.randomAlphanumeric(32))
-                          .expiredAt(LocalDateTime.now().plusDays(1))
+                          .expiredAt(ZonedDateTime.now().plusDays(1))
                           .build();
     }
 

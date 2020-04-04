@@ -11,7 +11,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -33,6 +32,4 @@ public class Product extends BaseEntity {
     private String title;
 
     private String description;
-
-    private LocalDateTime deletedAt;
 }

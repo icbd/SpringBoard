@@ -12,7 +12,7 @@ import org.springboard.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +43,7 @@ class AccessTokenServiceTest extends ServiceTestBase {
 
     @BeforeEach
     void setUp() {
+        accessTokenRepository.deleteAll();
         aUser = userRepository.save(buildUser());
         IntStream.range(0, CASE_COUNT).forEach(i -> cases.add(accessTokenRepository.save(buildAccessToken(aUser))));
         aCase = sample(cases);
@@ -69,7 +70,7 @@ class AccessTokenServiceTest extends ServiceTestBase {
 
         @Test
         void withExpiredToken() {
-            aCase.setExpiredAt(LocalDateTime.now().minusDays(1));
+            aCase.setExpiredAt(ZonedDateTime.now().minusDays(1));
             accessTokenRepository.save(aCase);
 
             assertThrows(AuthenticationErrorException.class, () -> accessTokenService.getAccessToken(aCase.getToken()));
@@ -78,7 +79,7 @@ class AccessTokenServiceTest extends ServiceTestBase {
 
     @Test
     void findAvailableAccessTokenTest() {
-        aCase.setExpiredAt(LocalDateTime.now().minusDays(1));
+        aCase.setExpiredAt(ZonedDateTime.now().minusDays(1));
         accessTokenRepository.save(aCase);
 
         List<AccessToken> accessTokens = accessTokenService.findAvailableAccessToken(aUser);
@@ -117,7 +118,7 @@ class AccessTokenServiceTest extends ServiceTestBase {
 
     @Test
     void updateAccessTokenTest() {
-        LocalDateTime expiredAt = LocalDateTime.now().plusDays(100);
+        ZonedDateTime expiredAt = ZonedDateTime.now().plusDays(100);
         accessTokenService.updateAccessToken(aCase, expiredAt);
         assertEquals(expiredAt, aCase.getExpiredAt());
     }

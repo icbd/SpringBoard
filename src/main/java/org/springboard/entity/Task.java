@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -49,7 +49,5 @@ public class Task extends BaseEntity {
     private String description;
 
     @ApiModelProperty("完成时间 (Task未完成时此值为null)")
-    private LocalDateTime completedAt;
-
-    private LocalDateTime deletedAt;
+    private ZonedDateTime completedAt;
 }

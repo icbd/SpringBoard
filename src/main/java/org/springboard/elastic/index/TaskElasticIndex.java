@@ -23,7 +23,7 @@ public class TaskElasticIndex {
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String title;
 
-    @Field(type = FieldType.Text, analyzer = "ik_smart")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String description;
 
     @Field(type = FieldType.Date)

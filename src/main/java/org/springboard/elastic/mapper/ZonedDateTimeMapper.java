@@ -12,7 +12,7 @@ public interface ZonedDateTimeMapper {
      * @param zonedDateTime
      * @return
      */
-    default String localDateTimeToString(ZonedDateTime zonedDateTime) {
+    default String zonedDateTimeToString(ZonedDateTime zonedDateTime) {
         if (zonedDateTime == null) {
             return null;
         }

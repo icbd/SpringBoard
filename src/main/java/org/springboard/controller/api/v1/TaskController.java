@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.TaskDto;
 import org.springboard.entity.Task;
+import org.springboard.entity.User;
 import org.springboard.mapper.TaskMapper;
+import org.springboard.security.CurrentUserContextHolder;
 import org.springboard.service.TaskService;
 import org.springboard.vo.CreateTaskVo;
 import org.springboard.vo.UpdateTaskVo;
@@ -43,7 +45,8 @@ public class TaskController extends BaseController {
     @ApiOperation("创建任务")
     @PostMapping
     public ResponseEntity<TaskDto> create(@Valid @RequestBody CreateTaskVo vo) {
-        Task task = taskService.createTask(vo, getCurrentUser());
+        User currentUser = CurrentUserContextHolder.getContext();
+        Task task = taskService.createTask(vo, currentUser);
         TaskDto taskDto = taskMapper.toTaskDto(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(taskDto);
     }

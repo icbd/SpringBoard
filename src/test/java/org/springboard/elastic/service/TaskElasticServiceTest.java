@@ -96,7 +96,7 @@ class TaskElasticServiceTest extends ServiceTestBase {
 
     @Nested
     class FindByTitle {
-        private static final String INDEX_TITLE = "a an the to all";
+        private static final String INDEX_TITLE = "Java高性能编程实战";
         private static final long INDEX_ID = 12345L;
 
         @BeforeEach
@@ -110,7 +110,7 @@ class TaskElasticServiceTest extends ServiceTestBase {
 
         @Test
         void findByTitleTest() {
-            List<TaskElasticIndex> taskElasticIndices = taskElasticService.findByTitle("the");
+            List<TaskElasticIndex> taskElasticIndices = taskElasticService.findByTitle("编程");
             assertFalse(taskElasticIndices.isEmpty());
         }
 
@@ -119,7 +119,7 @@ class TaskElasticServiceTest extends ServiceTestBase {
             int page = 0;
             int size = 1;
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Order.desc("id")));
-            Page<TaskElasticIndex> taskElasticIndexPage = taskElasticService.findByTitle("the", pageable);
+            Page<TaskElasticIndex> taskElasticIndexPage = taskElasticService.findByTitle("编程", pageable);
             assertFalse(taskElasticIndexPage.getContent().isEmpty());
         }
     }

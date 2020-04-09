@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.ProductDto;
 import org.springboard.entity.Product;
+import org.springboard.entity.User;
 import org.springboard.mapper.ProductMapper;
+import org.springboard.security.CurrentUserContextHolder;
 import org.springboard.service.ProductService;
 import org.springboard.vo.CreateProductVo;
 import org.springboard.vo.UpdateProductVo;
@@ -43,7 +45,8 @@ public class ProductController extends BaseController {
     @ApiOperation("创建项目")
     @PostMapping
     public ResponseEntity<ProductDto> create(@Valid @RequestBody CreateProductVo vo) {
-        Product product = productService.createProduct(vo, getCurrentUser());
+        User currentUser = CurrentUserContextHolder.getContext();
+        Product product = productService.createProduct(vo, currentUser);
         ProductDto productDto = productMapper.toProductDto(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(productDto);
     }

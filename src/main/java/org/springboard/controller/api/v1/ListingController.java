@@ -5,7 +5,9 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.ListingDto;
 import org.springboard.entity.Listing;
+import org.springboard.entity.User;
 import org.springboard.mapper.ListingMapper;
+import org.springboard.security.CurrentUserContextHolder;
 import org.springboard.service.ListingService;
 import org.springboard.vo.CreateListingVo;
 import org.springboard.vo.UpdateListingVo;
@@ -43,7 +45,8 @@ public class ListingController extends BaseController {
     @ApiOperation("创建清单")
     @PostMapping
     public ResponseEntity<ListingDto> create(@Valid @RequestBody CreateListingVo vo) {
-        Listing listing = listingService.createListing(vo, getCurrentUser());
+        User currentUser = CurrentUserContextHolder.getContext();
+        Listing listing = listingService.createListing(vo, currentUser);
         ListingDto listingDto = listingMapper.toListingDto(listing);
         return ResponseEntity.status(HttpStatus.CREATED).body(listingDto);
     }

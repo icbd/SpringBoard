@@ -1,15 +1,15 @@
 CREATE TABLE IF NOT EXISTS role
 (
-    `id`          bigint    NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    `uuid`        char(36)  NOT NULL UNIQUE DEFAULT (uuid()),
-    `creator_id`  bigint    NOT NULL,
-    `parent_id`   bigint,
-    `title`       varchar(255),
-    `description` text,
+    id          bigint    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid        char(36)  NOT NULL UNIQUE DEFAULT (uuid()),
+    creator_id  bigint    NOT NULL,
+    parent_id   bigint,
+    title       varchar(255),
+    description text,
 
-    `created_at`  timestamp NOT NULL        DEFAULT CURRENT_TIMESTAMP,
-    `updated_at`  timestamp NOT NULL        DEFAULT CURRENT_TIMESTAMP,
-    `deleted_at`  timestamp                 DEFAULT NULL
+    created_at  timestamp NOT NULL        DEFAULT CURRENT_TIMESTAMP,
+    updated_at  timestamp NOT NULL        DEFAULT CURRENT_TIMESTAMP,
+    deleted_at  timestamp                 DEFAULT NULL
 );
 
 CREATE INDEX index_role_on_creator_id ON role (creator_id);

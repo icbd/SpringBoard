@@ -7,7 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springboard.constant.PermissionEnum;
 
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +24,5 @@ public class Permission extends BaseEntity {
     @NotNull
     private Long sourceId;
 
-    @Convert
     private PermissionEnum code;
 }

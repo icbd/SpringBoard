@@ -4,7 +4,7 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 import java.util.stream.Stream;
 
-@Converter
+@Converter(autoApply = true)
 public class PermissionEnumConverter implements AttributeConverter<PermissionEnum, Integer> {
 
     @Override

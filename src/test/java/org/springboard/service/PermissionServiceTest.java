@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 @Nested
-class PermissionServiceTest {
+class PermissionServiceTest extends ServiceTestBase {
 
     @Autowired
     private PermissionService permissionService;
@@ -29,7 +29,7 @@ class PermissionServiceTest {
     @BeforeEach
     void setUp() {
         aCase = Permission.builder()
-                          .sourceType(Task.class.toString())
+                          .sourceType(Task.class.getSimpleName())
                           .sourceId(new Random().nextLong())
                           .code(PermissionEnum.ADMIN)
                           .build();

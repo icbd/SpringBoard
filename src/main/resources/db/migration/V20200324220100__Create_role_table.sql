@@ -2,7 +2,6 @@ CREATE TABLE IF NOT EXISTS role
 (
     id          bigint    NOT NULL AUTO_INCREMENT PRIMARY KEY,
     creator_id  bigint    NOT NULL,
-    parent_id   bigint,
     title       varchar(255),
     description text,
 
@@ -12,7 +11,5 @@ CREATE TABLE IF NOT EXISTS role
 );
 
 CREATE INDEX index_role_on_creator_id ON role (creator_id);
-
-CREATE INDEX index_role_on_parent_id ON role (parent_id);
 
 CREATE INDEX index_role_on_deleted_at ON role (deleted_at);

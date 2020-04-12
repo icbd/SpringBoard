@@ -18,7 +18,7 @@ public class PermissionService {
         return permissionRepository.getOne(id);
     }
 
-    public List<Permission> getPermissionsByIds(List<Long> permissionIds) {
+    public List<Permission> findPermissionsByIds(List<Long> permissionIds) {
         if (permissionIds == null || permissionIds.isEmpty()) {
             return new ArrayList<>();
         }

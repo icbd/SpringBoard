@@ -2,8 +2,10 @@ package org.springboard.service;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springboard.constant.PermissionEnum;
 import org.springboard.entity.AccessToken;
 import org.springboard.entity.Listing;
+import org.springboard.entity.Permission;
 import org.springboard.entity.Product;
 import org.springboard.entity.Task;
 import org.springboard.entity.User;
@@ -20,7 +22,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @ComponentScan("org.springboard")
@@ -140,5 +145,19 @@ public abstract class ServiceTestBase {
                            .parentUuid(parentTaskUuid)
                            .completed(completed)
                            .build();
+    }
+
+    public Permission buildPermission(String sourceType, Long sourceId, PermissionEnum code) {
+        return Permission.builder()
+                         .sourceType(sourceType)
+                         .sourceId(sourceId)
+                         .code(code)
+                         .build();
+    }
+
+    public List<Permission> buildPermissions(String sourceType, Long sourceId) {
+        return Stream.of(PermissionEnum.values())
+                     .map(e -> buildPermission(sourceType, sourceId, e))
+                     .collect(Collectors.toList());
     }
 }

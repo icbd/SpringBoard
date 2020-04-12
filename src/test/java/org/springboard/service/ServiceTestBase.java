@@ -7,6 +7,7 @@ import org.springboard.entity.AccessToken;
 import org.springboard.entity.Listing;
 import org.springboard.entity.Permission;
 import org.springboard.entity.Product;
+import org.springboard.entity.Role;
 import org.springboard.entity.Task;
 import org.springboard.entity.User;
 import org.springboard.vo.CreateListingVo;
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -159,5 +161,17 @@ public abstract class ServiceTestBase {
         return Stream.of(PermissionEnum.values())
                      .map(e -> buildPermission(sourceType, sourceId, e))
                      .collect(Collectors.toList());
+    }
+
+    public List<Permission> buildPermissions() {
+        return buildPermissions(Product.class.getSimpleName(), new Random().nextLong());
+    }
+
+    public Role buildRole(User creator) {
+        return Role.builder()
+                   .creator(creator)
+                   .title(faker.book().title())
+                   .description(faker.book().publisher())
+                   .build();
     }
 }

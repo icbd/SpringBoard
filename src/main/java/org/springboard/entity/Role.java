@@ -8,8 +8,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
@@ -27,11 +25,6 @@ public class Role extends BaseEntity {
     @OneToOne
     @JsonIgnore
     private User creator;
-
-    @ManyToOne
-    @JoinColumn(name = "parent_id", referencedColumnName = "id")
-    @JsonIgnore
-    private Role parentRole;
 
     @Builder.Default
     @JsonIgnore

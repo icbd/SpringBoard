@@ -88,7 +88,6 @@ class RoleAndPermissionServiceTest extends ServiceTestBase {
         roleAndPermissionService.bindBetween(role, permission);
 
         assertEquals(count + 1, roleAndPermissionRepository.count());
-        assertEquals(permission.getId(), roleAndPermissionService.findByRoleAndAndPermission(role, permission).getId());
     }
 
     @Test

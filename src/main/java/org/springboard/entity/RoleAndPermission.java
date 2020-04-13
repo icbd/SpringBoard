@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class RoleAndPermission extends BaseEntity {
+public class RoleAndPermission extends BaseEntityWithoutDeletedAt {
 
     @ManyToOne
     @JoinColumn(name = "role_id")

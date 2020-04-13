@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS role
 (
     id          bigint    NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    uuid        char(36)  NOT NULL UNIQUE DEFAULT (uuid()),
     creator_id  bigint    NOT NULL,
     title       varchar(255),
     description text,

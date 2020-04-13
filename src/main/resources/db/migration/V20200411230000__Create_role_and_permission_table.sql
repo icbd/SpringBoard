@@ -5,8 +5,7 @@ CREATE TABLE IF NOT EXISTS role_and_permission
     permission_id bigint    NOT NULL,
 
     created_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    updated_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    deleted_at    timestamp          DEFAULT NULL
+    updated_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX index_permission_on_deleted_at_role_id__permission_id ON role_and_permission (deleted_at, role_id, permission_id);
+CREATE UNIQUE INDEX index_permission_on_role_id_permission_id ON role_and_permission (role_id, permission_id);

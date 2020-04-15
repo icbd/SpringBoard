@@ -29,7 +29,7 @@ public class RoleAndPermissionService {
         return roleAndPermissionRepository.findRolesByPermissionId(permissionId);
     }
 
-    public void deleteByRoleAndPermission(Role role, Permission permission) {
-        roleAndPermissionRepository.deleteByRoleAndPermission(role, permission);
+    public int deleteByRoleAndPermission(Role role, Permission permission) {
+        return roleAndPermissionRepository.deleteByRoleAndPermission(role, permission);
     }
 }

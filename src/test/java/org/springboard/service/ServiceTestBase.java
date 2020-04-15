@@ -12,10 +12,12 @@ import org.springboard.entity.Task;
 import org.springboard.entity.User;
 import org.springboard.vo.CreateListingVo;
 import org.springboard.vo.CreateProductVo;
+import org.springboard.vo.CreateRoleVo;
 import org.springboard.vo.CreateTaskVo;
 import org.springboard.vo.CreateUserVo;
 import org.springboard.vo.UpdateListingVo;
 import org.springboard.vo.UpdateProductVo;
+import org.springboard.vo.UpdateRoleVo;
 import org.springboard.vo.UpdateTaskVo;
 import org.springboard.vo.UpdateUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -173,5 +175,19 @@ public abstract class ServiceTestBase {
                    .title(faker.book().title())
                    .description(faker.book().publisher())
                    .build();
+    }
+
+    public CreateRoleVo buildCreateRoleVo(List<Long> permissionIds) {
+        return CreateRoleVo.builder()
+                           .permissionIds(permissionIds)
+                           .title(faker.book().title())
+                           .description(faker.book().publisher())
+                           .build();
+    }
+
+    public UpdateRoleVo buildUpdateRoleVo(List<Long> permissionIds) {
+        return UpdateRoleVo.builder()
+                           .permissionIds(permissionIds)
+                           .build();
     }
 }

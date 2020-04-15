@@ -7,8 +7,12 @@ import org.springboard.entity.RoleAndPermission;
 import org.springboard.repository.RoleAndPermissionRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class RoleAndPermissionService {
 
     private final RoleAndPermissionRepository roleAndPermissionRepository;
@@ -17,27 +21,15 @@ public class RoleAndPermissionService {
         return roleAndPermissionRepository.getOne(id);
     }
 
-    public RoleAndPermission findByRoleAndAndPermission(Role role, Permission permission) {
-        return roleAndPermissionRepository
-                .findByRoleAndAndPermission(role.getId(), permission.getId());
+    public List<Permission> findPermissionsByRoleId(Long roleId) {
+        return roleAndPermissionRepository.findPermissionsByRoleId(roleId);
     }
 
-    public RoleAndPermission bindBetween(Role role, Permission permission) {
-        RoleAndPermission roleAndPermission = RoleAndPermission
-                .builder()
-                .role(role)
-                .permission(permission)
-                .build();
-        return roleAndPermissionRepository.save(roleAndPermission);
+    public List<Role> findRolesByPermissionId(Long permissionId) {
+        return roleAndPermissionRepository.findRolesByPermissionId(permissionId);
     }
 
-    public void unbindBetween(Role role, Permission permission) {
-        RoleAndPermission roleAndPermission = roleAndPermissionRepository
-                .findByRoleAndAndPermission(role.getId(), permission.getId());
-        destroyRoleAndPermission(roleAndPermission.getId());
-    }
-
-    public void destroyRoleAndPermission(Long id) {
-        roleAndPermissionRepository.deleteById(id);
+    public void deleteByRoleAndPermission(Role role, Permission permission) {
+        roleAndPermissionRepository.deleteByRoleAndPermission(role, permission);
     }
 }

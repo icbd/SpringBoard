@@ -39,7 +39,6 @@ public class PermissionService {
         return permissionRepository.save(permission);
     }
 
-
     public List<Permission> findOrCreateBy(String sourceType, Long sourceId, List<PermissionEnum> codes) {
         List<Permission> permissions = permissionRepository
                 .findBySourceTypeAndSourceIdAndCodeIsIn(sourceType, sourceId, codes);

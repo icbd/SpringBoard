@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS role_and_permission
     updated_at    timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE UNIQUE INDEX index_permission_on_role_id_permission_id ON role_and_permission (role_id, permission_id);
+CREATE UNIQUE INDEX index_role_and_permission_on_role_id_permission_id ON role_and_permission (role_id, permission_id);

@@ -9,6 +9,7 @@ import org.springboard.entity.User;
 import org.springboard.vo.CreateRoleVo;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class RolePackageService {
 
     private final RoleService roleService;

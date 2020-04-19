@@ -11,12 +11,14 @@ import org.springboard.vo.UpdateTaskVo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class TaskService {
 
     private final TaskRepository taskRepository;

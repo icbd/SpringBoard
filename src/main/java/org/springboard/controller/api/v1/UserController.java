@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springboard.dto.UserDto;
 import org.springboard.entity.User;
 import org.springboard.mapper.UserMapper;
-import org.springboard.security.CurrentUserContextHolder;
 import org.springboard.service.UserService;
 import org.springboard.vo.UpdateUserVo;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +29,14 @@ public class UserController extends BaseController {
     @ApiOperation(value = "查看个人信息")
     @GetMapping
     public ResponseEntity<UserDto> show() {
-        User currentUser = CurrentUserContextHolder.getContext();
-        UserDto userDto = userMapper.toUserDto(currentUser);
+        UserDto userDto = userMapper.toUserDto(getCurrentUser());
         return ResponseEntity.ok(userDto);
     }
 
     @ApiOperation("修改个人信息")
     @PatchMapping
     public ResponseEntity<UserDto> update(@Valid @RequestBody UpdateUserVo vo) {
-        User currentUser = CurrentUserContextHolder.getContext();
+        User currentUser = getCurrentUser();
         userService.updateUser(currentUser, vo);
         UserDto userDto = userMapper.toUserDto(currentUser);
         return ResponseEntity.ok(userDto);

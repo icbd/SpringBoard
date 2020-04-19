@@ -8,9 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class LoginService {
 
     private final UserService userService;

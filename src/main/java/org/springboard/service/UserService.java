@@ -12,11 +12,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class UserService {
 
     private final UserRepository userRepository;
@@ -57,9 +59,9 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public void updateUser(User user, UpdateUserVo vo) {
+    public User updateUser(User user, UpdateUserVo vo) {
         userMapper.mergeUser(user, vo);
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     public void destroyUser(Long id) {

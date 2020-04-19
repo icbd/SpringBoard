@@ -8,8 +8,11 @@ import org.springboard.repository.RoleAndUserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.transaction.Transactional;
+
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class RoleAndUserService {
 
     private final RoleAndUserRepository roleAndUserRepository;

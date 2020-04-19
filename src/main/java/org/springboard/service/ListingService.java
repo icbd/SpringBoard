@@ -11,10 +11,12 @@ import org.springboard.vo.UpdateListingVo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ListingService {
 
     private final ProductService productService;

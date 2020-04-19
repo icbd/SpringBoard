@@ -37,7 +37,7 @@ public class ListingService {
         Product product = productService.getProductByUuid(vo.getProductUuid());
         Listing listing = listingMapper.createListing(vo);
         listing.setCreator(creator);
-        listing.setProject(product);
+        listing.setProduct(product);
         return listingRepository.save(listing);
     }
 

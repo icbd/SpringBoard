@@ -102,7 +102,7 @@ public abstract class ServiceTestBase {
         return Listing.builder()
                       .title(faker.book().title())
                       .description(faker.book().author())
-                      .project(product)
+                      .product(product)
                       .creator(creator)
                       .build();
     }

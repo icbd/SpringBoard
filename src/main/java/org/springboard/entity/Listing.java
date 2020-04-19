@@ -28,7 +28,7 @@ public class Listing extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    private Product project;
+    private Product product;
 
     @ManyToOne
     @JsonIgnore

@@ -7,11 +7,13 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+import org.springboard.constant.PermissionEnum;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,21 +22,22 @@ import java.util.UUID;
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Listing extends BaseEntity {
+public class Permission extends BaseEntity {
 
     @NotNull
     @Type(type = "uuid-char")
     private UUID uuid;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Builder.Default
+    @ManyToMany(mappedBy = "permissions")
     @JsonIgnore
-    private Product product;
+    private List<Role> roles = new ArrayList<>();
 
-    @ManyToOne
-    @JsonIgnore
-    private User creator;
+    @NotNull
+    private String sourceType;
 
-    private String title;
+    @NotNull
+    private Long sourceId;
 
-    private String description;
+    private PermissionEnum code;
 }

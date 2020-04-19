@@ -11,10 +11,12 @@ import org.springboard.vo.UpdateListingVo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class ListingService {
 
     private final ProductService productService;
@@ -37,7 +39,7 @@ public class ListingService {
         Product product = productService.getProductByUuid(vo.getProductUuid());
         Listing listing = listingMapper.createListing(vo);
         listing.setCreator(creator);
-        listing.setProject(product);
+        listing.setProduct(product);
         return listingRepository.save(listing);
     }
 

@@ -8,11 +8,13 @@ import org.springboard.exception.AuthenticationErrorException;
 import org.springboard.repository.AccessTokenRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.ZonedDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class AccessTokenService {
 
     private static final Integer EXPIRED_DAYS = 60;

@@ -2,17 +2,22 @@ package org.springboard.service;
 
 import com.github.javafaker.Faker;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springboard.constant.PermissionEnum;
 import org.springboard.entity.AccessToken;
 import org.springboard.entity.Listing;
+import org.springboard.entity.Permission;
 import org.springboard.entity.Product;
+import org.springboard.entity.Role;
 import org.springboard.entity.Task;
 import org.springboard.entity.User;
 import org.springboard.vo.CreateListingVo;
 import org.springboard.vo.CreateProductVo;
+import org.springboard.vo.CreateRoleVo;
 import org.springboard.vo.CreateTaskVo;
 import org.springboard.vo.CreateUserVo;
 import org.springboard.vo.UpdateListingVo;
 import org.springboard.vo.UpdateProductVo;
+import org.springboard.vo.UpdateRoleVo;
 import org.springboard.vo.UpdateTaskVo;
 import org.springboard.vo.UpdateUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +25,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Random;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @ComponentScan("org.springboard")
@@ -93,7 +102,7 @@ public abstract class ServiceTestBase {
         return Listing.builder()
                       .title(faker.book().title())
                       .description(faker.book().author())
-                      .project(product)
+                      .product(product)
                       .creator(creator)
                       .build();
     }
@@ -139,6 +148,46 @@ public abstract class ServiceTestBase {
                            .listingUuid(listingUuid)
                            .parentUuid(parentTaskUuid)
                            .completed(completed)
+                           .build();
+    }
+
+    public Permission buildPermission(String sourceType, Long sourceId, PermissionEnum code) {
+        return Permission.builder()
+                         .sourceType(sourceType)
+                         .sourceId(sourceId)
+                         .code(code)
+                         .build();
+    }
+
+    public List<Permission> buildPermissions(String sourceType, Long sourceId) {
+        return Stream.of(PermissionEnum.values())
+                     .map(e -> buildPermission(sourceType, sourceId, e))
+                     .collect(Collectors.toList());
+    }
+
+    public List<Permission> buildPermissions() {
+        return buildPermissions(Product.class.getSimpleName(), new Random().nextLong());
+    }
+
+    public Role buildRole(User creator) {
+        return Role.builder()
+                   .creator(creator)
+                   .title(faker.book().title())
+                   .description(faker.book().publisher())
+                   .build();
+    }
+
+    public CreateRoleVo buildCreateRoleVo(List<Long> permissionIds) {
+        return CreateRoleVo.builder()
+                           .permissionIds(permissionIds)
+                           .title(faker.book().title())
+                           .description(faker.book().publisher())
+                           .build();
+    }
+
+    public UpdateRoleVo buildUpdateRoleVo(List<Long> permissionIds) {
+        return UpdateRoleVo.builder()
+                           .permissionIds(permissionIds)
                            .build();
     }
 }

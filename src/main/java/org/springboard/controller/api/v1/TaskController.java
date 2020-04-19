@@ -5,9 +5,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springboard.dto.TaskDto;
 import org.springboard.entity.Task;
-import org.springboard.entity.User;
 import org.springboard.mapper.TaskMapper;
-import org.springboard.security.CurrentUserContextHolder;
+import org.springboard.service.AuthorizationService;
 import org.springboard.service.TaskService;
 import org.springboard.vo.CreateTaskVo;
 import org.springboard.vo.UpdateTaskVo;
@@ -25,6 +24,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.UUID;
 
+import static org.springboard.constant.PermissionEnum.ADMIN;
+import static org.springboard.constant.PermissionEnum.EDIT;
+import static org.springboard.constant.PermissionEnum.READ;
+
 @Api(tags = "任务")
 @RequiredArgsConstructor
 @RestController
@@ -33,11 +36,14 @@ public class TaskController extends BaseController {
 
     private final TaskService taskService;
     private final TaskMapper taskMapper;
+    private final AuthorizationService authorizationService;
 
     @ApiOperation("展示任务")
     @GetMapping("/{uuid}")
     public ResponseEntity<TaskDto> show(@PathVariable UUID uuid) {
         Task task = taskService.getTaskByUuid(uuid);
+        authorizationService.can(task, READ, getCurrentUser());
+
         TaskDto taskDto = taskMapper.toTaskDto(task);
         return ResponseEntity.ok(taskDto);
     }
@@ -45,8 +51,9 @@ public class TaskController extends BaseController {
     @ApiOperation("创建任务")
     @PostMapping
     public ResponseEntity<TaskDto> create(@Valid @RequestBody CreateTaskVo vo) {
-        User currentUser = CurrentUserContextHolder.getContext();
-        Task task = taskService.createTask(vo, currentUser);
+        Task task = taskService.createTask(vo, getCurrentUser());
+        authorizationService.can(task, EDIT, getCurrentUser());
+
         TaskDto taskDto = taskMapper.toTaskDto(task);
         return ResponseEntity.status(HttpStatus.CREATED).body(taskDto);
     }
@@ -55,6 +62,8 @@ public class TaskController extends BaseController {
     @PatchMapping("/{uuid}")
     public ResponseEntity<TaskDto> update(@PathVariable UUID uuid, @Valid @RequestBody UpdateTaskVo vo) {
         Task task = taskService.getTaskByUuid(uuid);
+        authorizationService.can(task, EDIT, getCurrentUser());
+
         taskService.updateTask(task, vo);
         TaskDto taskDto = taskMapper.toTaskDto(task);
         return ResponseEntity.ok(taskDto);
@@ -64,6 +73,8 @@ public class TaskController extends BaseController {
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Void> destroy(@PathVariable UUID uuid) {
         Task task = taskService.getTaskByUuid(uuid);
+        authorizationService.can(task, ADMIN, getCurrentUser());
+
         taskService.destroyTask(task.getId());
         return ResponseEntity.noContent().build();
     }
